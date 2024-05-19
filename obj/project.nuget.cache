@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "lHJuIWw8+t6rk5n+73KAVXfPoZOaCu6HTz5+l+8uFXUiLLcvrlVNR22PBZeRoIj+MqbRnIHFbQYcYtoT6x6YyA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\yuchi\\OneDrive\\桌面\\NorthwindApi\\NorthwindApi\\NorthwindApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yuchi\\AppData\\Roaming\\NuGet\\package\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\yuchi\\AppData\\Roaming\\NuGet\\package\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\yuchi\\AppData\\Roaming\\NuGet\\package\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\yuchi\\AppData\\Roaming\\NuGet\\package\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\yuchi\\AppData\\Roaming\\NuGet\\package\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\yuchi\\AppData\\Roaming\\NuGet\\package\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
