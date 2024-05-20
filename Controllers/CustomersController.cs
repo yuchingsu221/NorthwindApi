@@ -1,32 +1,64 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NorthwindApi.Domain.Entities;
+using NorthwindApi.Services;
 
-namespace NorthwindApi.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+namespace NorthwindApi.Controllers
 {
-    private static readonly string[] Summaries = new[]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CustomersController : ControllerBase
     {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        private readonly CustomerService _customerService;
 
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        public CustomersController(CustomerService customerService)
         {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+            _customerService = customerService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        {
+            var customers = await _customerService.GetAllCustomersAsync();
+            return Ok(customers);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Customer>> GetCustomer(string id)
+        {
+            var customer = await _customerService.GetCustomerByIdAsync(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return Ok(customer);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        {
+            await _customerService.AddCustomerAsync(customer);
+            return CreatedAtAction(nameof(GetCustomer), new { id = customer.CustomerID }, customer);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCustomer(string id, Customer customer)
+        {
+            if (id != customer.CustomerID)
+            {
+                return BadRequest();
+            }
+
+            await _customerService.UpdateCustomerAsync(customer);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCustomer(string id)
+        {
+            await _customerService.DeleteCustomerAsync(id);
+            return NoContent();
+        }
     }
 }
