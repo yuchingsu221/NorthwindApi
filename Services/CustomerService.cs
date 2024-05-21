@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using NorthwindApi.Domain.Entities;
 using NorthwindApi.Domain.Interfaces;
+using NorthwindApi.Models.Response;
 
 namespace NorthwindApi.Services
 {
@@ -17,6 +18,14 @@ namespace NorthwindApi.Services
         public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
         {
             return await _customerRepository.GetAllAsync();
+        }
+
+        public async Task<CustomerListRsModel> GetAllCustomersAsyncTwo()
+        {
+            IEnumerable<Customer> customers = await _customerRepository.GetAllAsync();
+            CustomerListRsModel customerListRsModel = new CustomerListRsModel();
+            customerListRsModel.Customers = customers;
+            return customerListRsModel;
         }
 
         public async Task<Customer> GetCustomerByIdAsync(string id)

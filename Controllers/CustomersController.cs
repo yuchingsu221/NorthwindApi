@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NorthwindApi.Domain.Entities;
 using NorthwindApi.Services;
+using NorthwindApi.Models.Response;
 
 namespace NorthwindApi.Controllers
 {
@@ -17,11 +18,41 @@ namespace NorthwindApi.Controllers
             _customerService = customerService;
         }
 
+
+        /// <summary>
+        /// 取得客戶清單 (使用ActionResult<T>)
+        /// </summary>
+        /// <remarks>
+        /// ### 流程
+        /// 1. 控制器層 接收到HTTP GET請求後，調用 服務層 方法。
+        /// 2. 服務層 方法執行業務邏輯，並調用 儲存庫層 方法來獲取數據。
+        /// 3. 儲存庫層 使用 DbContext 查詢數據庫，並返回客戶數據給 服務層。
+        /// 4. 服務層 接收到數據後，將其返回給 控制器層。
+        /// 5. 控制器層 將數據封裝在 Ok 結果中，並返回給客戶端。
+        /// </remarks>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
             var customers = await _customerService.GetAllCustomersAsync();
             return Ok(customers);
+        }
+
+        /// <summary>
+        /// 取得客戶清單 (使用指定型別)
+        /// </summary>
+        /// <remarks>
+        /// ### 流程
+        /// 1. 控制器層 接收到HTTP GET請求後，調用 服務層 方法。
+        /// 2. 服務層 方法執行業務邏輯，並調用 儲存庫層 方法來獲取數據。
+        /// 3. 儲存庫層 使用 DbContext 查詢數據庫，並返回客戶數據給 服務層。
+        /// 4. 服務層 接收到數據後，將其返回給 控制器層。
+        /// 5. 控制器層 將數據封裝在 Ok 結果中，並返回給客戶端。
+        /// </remarks>
+        [HttpGet("CustomersTwo")]
+        public async Task<CustomerListRsModel> GetCustomersTwo()
+        {
+            var customers = await _customerService.GetAllCustomersAsyncTwo();
+            return customers;
         }
 
         [HttpGet("{id}")]
