@@ -20,16 +20,17 @@ namespace NorthwindApi.Controllers
 
 
         /// <summary>
-        /// 取得客戶清單 (使用ActionResult<T>)
+        /// 取得客戶清單 (使用 ActionResult<T>)
         /// </summary>
         /// <remarks>
         /// ### 流程
-        /// 1. 控制器層 接收到HTTP GET請求後，調用 服務層 方法。
-        /// 2. 服務層 方法執行業務邏輯，並調用 儲存庫層 方法來獲取數據。
-        /// 3. 儲存庫層 使用 DbContext 查詢數據庫，並返回客戶數據給 服務層。
-        /// 4. 服務層 接收到數據後，將其返回給 控制器層。
-        /// 5. 控制器層 將數據封裝在 Ok 結果中，並返回給客戶端。
+        /// 1. 控制器層接收到 HTTP GET 請求後，調用服務層方法 `GetAllCustomersAsync`。
+        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來獲取數據。
+        /// 3. 儲存庫層使用 DbContext 查詢數據庫，並返回客戶數據給服務層。
+        /// 4. 服務層接收到數據後，將其返回給控制器層。
+        /// 5. 控制器層將數據封裝在 Ok 結果中，並返回給客戶端。
         /// </remarks>
+        /// <returns>所有客戶的清單</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
@@ -42,12 +43,13 @@ namespace NorthwindApi.Controllers
         /// </summary>
         /// <remarks>
         /// ### 流程
-        /// 1. 控制器層 接收到HTTP GET請求後，調用 服務層 方法。
-        /// 2. 服務層 方法執行業務邏輯，並調用 儲存庫層 方法來獲取數據。
-        /// 3. 儲存庫層 使用 DbContext 查詢數據庫，並返回客戶數據給 服務層。
-        /// 4. 服務層 接收到數據後，將其返回給 控制器層。
-        /// 5. 控制器層 將數據封裝在 Ok 結果中，並返回給客戶端。
+        /// 1. 控制器層接收到 HTTP GET 請求後，調用服務層方法 `GetAllCustomersAsyncTwo`。
+        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來獲取數據。
+        /// 3. 儲存庫層使用 DbContext 查詢數據庫，並返回客戶數據給服務層。
+        /// 4. 服務層接收到數據後，將其返回給控制器層。
+        /// 5. 控制器層將數據封裝在 Ok 結果中，並返回給客戶端。
         /// </remarks>
+        /// <returns>包含所有客戶的清單的 CustomerListRsModel</returns>
         [HttpGet("CustomersTwo")]
         public async Task<CustomerListRsModel> GetCustomersTwo()
         {
@@ -55,6 +57,19 @@ namespace NorthwindApi.Controllers
             return customers;
         }
 
+        /// <summary>
+        /// 根據客戶ID取得特定客戶資料
+        /// </summary>
+        /// <remarks>
+        /// ### 流程
+        /// 1. 控制器層接收到 HTTP GET 請求後，調用服務層方法 `GetCustomerByIdAsync`。
+        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來獲取數據。
+        /// 3. 儲存庫層使用 DbContext 查詢數據庫，並返回客戶數據給服務層。
+        /// 4. 服務層接收到數據後，將其返回給控制器層。
+        /// 5. 控制器層將數據封裝在 Ok 結果中，並返回給客戶端。
+        /// </remarks>
+        /// <param name="id">客戶ID</param>
+        /// <returns>特定客戶的資料</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(string id)
         {
@@ -66,6 +81,19 @@ namespace NorthwindApi.Controllers
             return Ok(customer);
         }
 
+        /// <summary>
+        /// 新增客戶
+        /// </summary>
+        /// <remarks>
+        /// ### 流程
+        /// 1. 控制器層接收到 HTTP POST 請求後，調用服務層方法 `AddCustomerAsync`。
+        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來保存數據。
+        /// 3. 儲存庫層使用 DbContext 將客戶數據保存到數據庫中。
+        /// 4. 服務層接收到保存成功的結果後，將其返回給控制器層。
+        /// 5. 控制器層將數據封裝在 CreatedAtAction 結果中，並返回給客戶端。
+        /// </remarks>
+        /// <param name="customer">客戶資料</param>
+        /// <returns>新增的客戶資料</returns>
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
@@ -73,6 +101,20 @@ namespace NorthwindApi.Controllers
             return CreatedAtAction(nameof(GetCustomer), new { id = customer.CustomerID }, customer);
         }
 
+        /// <summary>
+        /// 更新客戶資料
+        /// </summary>
+        /// <remarks>
+        /// ### 流程
+        /// 1. 控制器層接收到 HTTP PUT 請求後，調用服務層方法 `UpdateCustomerAsync`。
+        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來更新數據。
+        /// 3. 儲存庫層使用 DbContext 更新數據庫中的客戶資料。
+        /// 4. 服務層接收到更新成功的結果後，將其返回給控制器層。
+        /// 5. 控制器層返回 NoContent 結果給客戶端。
+        /// </remarks>
+        /// <param name="id">客戶ID</param>
+        /// <param name="customer">客戶資料</param>
+        /// <returns>更新結果</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(string id, Customer customer)
         {
@@ -85,6 +127,19 @@ namespace NorthwindApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// 刪除客戶
+        /// </summary>
+        /// <remarks>
+        /// ### 流程
+        /// 1. 控制器層接收到 HTTP DELETE 請求後，調用服務層方法 `DeleteCustomerAsync`。
+        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來刪除數據。
+        /// 3. 儲存庫層使用 DbContext 刪除數據庫中的客戶資料。
+        /// 4. 服務層接收到刪除成功的結果後，將其返回給控制器層。
+        /// 5. 控制器層返回 NoContent 結果給客戶端。
+        /// </remarks>
+        /// <param name="id">客戶ID</param>
+        /// <returns>刪除結果</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(string id)
         {
