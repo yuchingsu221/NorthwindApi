@@ -133,9 +133,9 @@ namespace NorthwindApi.Controllers
         /// <remarks>
         /// ### 流程
         /// 1. 控制器層接收到 HTTP DELETE 請求後，調用服務層方法 `DeleteCustomerAsync`。
-        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來刪除數據。
-        /// 3. 儲存庫層使用 DbContext 刪除數據庫中的客戶資料。
-        /// 4. 服務層接收到刪除成功的結果後，將其返回給控制器層。
+        /// 2. 服務層方法執行業務邏輯，並調用儲存庫層方法來註記刪除數據。
+        /// 3. 儲存庫層使用 DbContext 註記刪除數據庫中的客戶資料。
+        /// 4. 服務層接收到註記刪除成功的結果後，將其返回給控制器層。
         /// 5. 控制器層返回 NoContent 結果給客戶端。
         /// </remarks>
         /// <param name="id">客戶ID</param>
