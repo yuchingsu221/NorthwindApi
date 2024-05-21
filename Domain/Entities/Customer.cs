@@ -13,5 +13,6 @@
         public string Country { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
+        public bool IsDeleted { get; set; }  // 加入註記刪除
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using NorthwindApi.Domain.Entities;
+using NorthwindApi.Models.Response;
 
 namespace NorthwindApi.Domain.Interfaces
 {

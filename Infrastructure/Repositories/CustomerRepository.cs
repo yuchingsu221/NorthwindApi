@@ -40,10 +40,12 @@ namespace NorthwindApi.Infrastructure.Repositories
 
         public async Task DeleteAsync(string id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerID == id);
             if (customer != null)
             {
-                _context.Customers.Remove(customer);
+                //_context.Customers.Remove(customer);
+                customer.IsDeleted = true;
+                _context.Customers.Update(customer);
                 await _context.SaveChangesAsync();
             }
         }
