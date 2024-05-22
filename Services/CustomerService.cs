@@ -20,12 +20,15 @@ namespace NorthwindApi.Services
             return await _customerRepository.GetAllAsync();
         }
 
-        public async Task<CustomerListRsModel> GetAllCustomersAsyncTwo()
+        public async Task<BaseResponseModel<CustomerListRsModel>> GetAllCustomersAsyncTwo()
         {
             IEnumerable<Customer> customers = await _customerRepository.GetAllAsync();
-            CustomerListRsModel customerListRsModel = new CustomerListRsModel();
-            customerListRsModel.Customers = customers;
-            return customerListRsModel;
+            BaseResponseModel<CustomerListRsModel> result = new BaseResponseModel<CustomerListRsModel>();
+            CustomerListRsModel customerListRsModel1 = new CustomerListRsModel();
+            customerListRsModel1.Customers = customers;
+            result.Data = customerListRsModel1;
+
+            return result;
         }
 
         public async Task<Customer> GetCustomerByIdAsync(string id)

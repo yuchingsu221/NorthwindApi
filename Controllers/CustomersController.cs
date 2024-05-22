@@ -31,7 +31,7 @@ namespace NorthwindApi.Controllers
         /// 5. 控制器層將數據封裝在 Ok 結果中，並返回給客戶端。
         /// </remarks>
         /// <returns>所有客戶的清單</returns>
-        [HttpGet]
+        [HttpGet("CustomersOne")]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
             var customers = await _customerService.GetAllCustomersAsync();
@@ -51,7 +51,7 @@ namespace NorthwindApi.Controllers
         /// </remarks>
         /// <returns>包含所有客戶的清單的 CustomerListRsModel</returns>
         [HttpGet("CustomersTwo")]
-        public async Task<CustomerListRsModel> GetCustomersTwo()
+        public async Task<BaseResponseModel<CustomerListRsModel>> GetCustomersTwo()
         {
             var customers = await _customerService.GetAllCustomersAsyncTwo();
             return customers;

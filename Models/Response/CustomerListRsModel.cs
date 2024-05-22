@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace NorthwindApi.Models.Response
 {
     [DataContract]
-    public class CustomerListRsModel : BaseResponseModel
+    public class CustomerListRsModel
     {
         /// <summary>
         /// 客戶清單
