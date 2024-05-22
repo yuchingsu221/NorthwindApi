@@ -51,7 +51,7 @@ namespace NorthwindApi.Services
             Customer customer = await GetCustomerByIdAsync(id);
             if (customer == null)
             {
-                //Guarder.Throw(ErrorCodeEnum.PARAMETER_ERR_CODE);
+                Guarder.Throw(ErrorCodeEnum.PARAMETER_ERR_CODE);
             }
             await _customerRepository.DeleteAsync(id);
         }
