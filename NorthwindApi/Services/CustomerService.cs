@@ -48,6 +48,11 @@ namespace NorthwindApi.Services
 
         public async Task DeleteCustomerAsync(string id)
         {
+            Customer customer = await GetCustomerByIdAsync(id);
+            if (customer == null)
+            {
+                //Guarder.Throw(ErrorCodeEnum.PARAMETER_ERR_CODE);
+            }
             await _customerRepository.DeleteAsync(id);
         }
     }
