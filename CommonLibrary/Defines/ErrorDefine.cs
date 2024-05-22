@@ -48,12 +48,6 @@ namespace NorthwindApi
                 ErrorCode = ErrorCodeEnum.EXCUTE_ERR_CODE,
                 ErrorMsg = "系統忙線中，請稍後再試。"
             },
-            new ErrorDefine()
-            {
-                ErrorCode = ErrorCodeEnum.EXCUTE_ERR_CODE,
-                ErrorMsg = "系統忙線中，請稍後再試。"
-            },
-
             #endregion      
         };
     }

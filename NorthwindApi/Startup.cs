@@ -4,24 +4,15 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using NorthwindApi.Domain.Interfaces;
 using NorthwindApi.Infrastructure.Context;
 using NorthwindApi.Infrastructure.Repositories;
 using NorthwindApi.Services;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System;
 using System.Net;
-using System.Reflection;
-using Microsoft.AspNetCore.Authorization;
-using System.Net.Http.Headers;
 using System.Net.Security;
 using Newtonsoft.Json.Serialization;
-using NorthwindApi.Filters.Swagger;
 using NorthwindApi.Filters;
 using NorthwindApi;
 using NorthwindApi.Models.Response;
@@ -41,34 +32,10 @@ public class Startup
         SetAppsettingsInfo(services);
         SetJSONFormatInfo(services);
         SetSwaggerInfo(services);
-        SetNpgsqlConnectionInfo(services);
         SetCorsPolicyInfo(services);
         SetPluginDIInfo(services);
         SetFilterInfo(services);
         SetAttributeInfo(services);
-
-        ServicePointManager.DefaultConnectionLimit = short.MaxValue;
-        ServicePointManager.ServerCertificateValidationCallback +=
-          (sender, cert, chain, sslPolicyErrors) =>
-          {
-              if (sslPolicyErrors == SslPolicyErrors.None)
-              {
-                  return true;
-              }
-              var request = sender as HttpWebRequest;
-              if (request != null)
-              {
-                  var result = request.RequestUri.Host == Setting.HttpWebRequestHost;
-
-                  return result;
-              }
-              return false;
-          };
-
-        // If using Kestrel:
-        services.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
-        // If using IIS:
-        services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
     }
 
     private void SetAppsettingsInfo(IServiceCollection services)
@@ -115,12 +82,6 @@ public class Startup
             });
         }
     }
-
-    private void SetNpgsqlConnectionInfo(IServiceCollection services)
-    {
-        //services.AddTransient<IDbConnection>(db =>
-        //    new SqlServerConnection(Setting.RelationDB.DIR_ConnectionString));
-    }    
 
     private void SetPluginDIInfo(IServiceCollection services)
     {
