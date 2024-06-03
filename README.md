@@ -1,4 +1,4 @@
-# README: Northwind API 專案啟動與請求處理流程
+# README: (.net 6 API 程式架構設計) Northwind API 專案啟動與請求處理流程
 
 ## 目錄
 1. [專案啟動流程](#專案啟動流程)
